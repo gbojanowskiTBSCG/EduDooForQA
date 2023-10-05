@@ -1,0 +1,3067 @@
+{
+	"info": {
+		"_postman_id": "d4808206-886a-490c-8a4a-904157176a21",
+		"name": "PartsPortlApiDefinitions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SetBearerToken",
+			"item": [
+				{
+					"name": "getBearerToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let jsonData = pm.response.json();\r",
+									"pm.environment.set(\"BearerToken\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"id": "b4e78196-40c1-40a6-8264-edcdbee805fd"
+							}
+						}
+					],
+					"id": "3cee17ca-cfc6-4f65-bec3-91ffd2b2e1cd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Cookie",
+								"value": "DT=DI0H3L3LkXaSNa1hfPjoLFl4A; JSESSIONID=51DB71D69062396A6D6A0176D549CDF1"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "api:dp feedback:read equipment:read api:dms api:asset contact:read content:read passport:self subscriptions:read api:partsportal api:opc dealer iot:read profile openid email api:iam groups product:read account:read passport:read ngpassport",
+									"type": "text"
+								}
+							]
+						},
+						"url": "https://doosan.oktapreview.com/oauth2/ausc2ng52wmC1WdPj0h7/v1/token"
+					},
+					"response": []
+				}
+			],
+			"id": "3e14877b-f35e-46d8-8c82-45880fc9a19f"
+		},
+		{
+			"name": "Async Process APIs",
+			"item": [
+				{
+					"name": "TODO:TEST Check Async Process Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "eae26be9-d3b5-46cb-829f-ec0f789a0931"
+							}
+						}
+					],
+					"id": "9732b08a-4ef2-43a5-af9a-e12059162ade",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/price/{{organizationId}}/list"
+					},
+					"response": []
+				}
+			],
+			"id": "66d71663-a97d-462a-afa4-e701892c6536"
+		},
+		{
+			"name": "Cart APIs",
+			"item": [
+				{
+					"name": "Get Active Cart API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "be30fc40-93e8-4d26-92fd-56b826e6294f"
+							}
+						}
+					],
+					"id": "6e10b116-7ae2-4c38-8a3f-19f92761f10b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authority",
+								"value": "parts-portal.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmhmbGR0N0JWVlpQUWVEVmV3d1dXaFo5R0tnOUhWVXY2NE1rQUtsaHowV0EiLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJjaGFkYWlsbGF0LmxvcmVsZW5uQHRvcGF6LXByby5jb20iLCJpYXQiOjE2ODkxNDczMjAsImV4cCI6MTY4OTE1MDkyMCwiY2lkIjoiMG9hMTB1cGkxczMwZzYxT24waDgiLCJ1aWQiOiIwMHV2cHFxODUwakNHUEhLVTBoNyIsInNjcCI6WyJhcGk6ZHAiLCJmZWVkYmFjazpyZWFkIiwiZXF1aXBtZW50OnJlYWQiLCJhcGk6ZG1zIiwiZW1haWwiLCJhcGk6YXNzZXQiLCJjb250YWN0OnJlYWQiLCJjb250ZW50OnJlYWQiLCJwYXNzcG9ydDpzZWxmIiwic3Vic2NyaXB0aW9uczpyZWFkIiwiYXBpOnBhcnRzcG9ydGFsIiwiYXBpOm9wYyIsImRlYWxlciIsImlvdDpyZWFkIiwiYXBpOmlhbSIsImdyb3VwcyIsInByb2ZpbGUiLCJwcm9kdWN0OnJlYWQiLCJhY2NvdW50OnJlYWQiLCJwYXNzcG9ydDpyZWFkIiwibmdwYXNzcG9ydCIsIm9wZW5pZCJdLCJhdXRoX3RpbWUiOjE2ODkxNDczMTIsInByaW1hcnlCdXNpbmVzc0Z1bmN0aW9uIjoiREVBTEVSX1BBUlRTX1NQQyIsInBhc3Nwb3J0V2ViUm9sZXMiOlsiQUxMX0xNU19ERUFMRVJBRE1JTiIsIkFMTF9MTVNfR1VFU1QiLCJBTExfTE1TX0xFQVJORVIiLCJBTExfTUVESUFIVUJfQk9CQ0FUX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfT1BDX0FETUlOIiwiQUxMX09QQ19VU0VSIiwiQUxMX09QQ19VU0VSX0xJVEUiLCJBTExfVFJBTlNBQ1RfUEFSVFMiLCJBTExfVklFV19QQVJUU19QUklDRVMiLCJBTExfVklFV19TRVJWSUNFIiwiTkdfRVhURVJOQUxfVVNFUiJdLCJkaXJlY3RvcnlfZ3JvdXAiOlsiZGlyZWN0b3J5LWRlYWxlciJdLCJlbXBsb3llZU51bWJlciI6IjAxMDc3MDM1In0.Ybel7ooAYxwIf9f6d_XaIKl6Tr49-q9tz5_E7sZws1FlEXSlqd465JJPYDg7AJIo_U-xB9R-vCQ_vQUAlr_sJIhLz3peeoAa4-7ss7RBDRSWypCfw-NBbKGxb7vlee36dp7-_1DVt9-UsNpVexxPr1Yg2M2rsevGRtEH0twYiYbyc0gLvi3c8roRX5ijiKT2opOx-u2dKSyQUpy6tK5F89gGB1NjIcB4PT4pq8wI5wTfhdRjS4_KG1T-fleQrfVtC2cEaQGz29OXntIh75nhLl6ulxyLad1t9PmbSkhYF-j6gDNhjUi4D7ZPzUeWylWkHY453TtNkpv3NtzDWcWAug"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"resetStatus\":true,\"resetPrices\":true}"
+						},
+						"url": "{{BASE_URL}}/cart/{{organizationId}}/active"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Lines To Active Cart API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "f5fdffa9-0128-4488-9f09-4db492f2f063"
+							}
+						}
+					],
+					"id": "ff4f4cbe-b840-445b-9fb7-abd496042c4e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authority",
+								"value": "parts-portal.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmFNZU1GdVpIZV85cTJwMUdvdFd5aGJGN195YzBvbVVXQ3JXd0JUMFM4NGsiLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJjaGFkYWlsbGF0LmxvcmVsZW5uQHRvcGF6LXByby5jb20iLCJpYXQiOjE2ODkxNTQ1MzEsImV4cCI6MTY4OTE1ODEzMSwiY2lkIjoiMG9hMTB1cGkxczMwZzYxT24waDgiLCJ1aWQiOiIwMHV2cHFxODUwakNHUEhLVTBoNyIsInNjcCI6WyJhcGk6ZHAiLCJmZWVkYmFjazpyZWFkIiwiZXF1aXBtZW50OnJlYWQiLCJhcGk6ZG1zIiwiYXBpOmFzc2V0IiwiY29udGFjdDpyZWFkIiwiY29udGVudDpyZWFkIiwicGFzc3BvcnQ6c2VsZiIsImVtYWlsIiwic3Vic2NyaXB0aW9uczpyZWFkIiwiYXBpOnBhcnRzcG9ydGFsIiwicHJvZmlsZSIsImFwaTpvcGMiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsImFwaTppYW0iLCJncm91cHMiLCJwcm9kdWN0OnJlYWQiLCJvcGVuaWQiLCJhY2NvdW50OnJlYWQiLCJwYXNzcG9ydDpyZWFkIiwibmdwYXNzcG9ydCJdLCJhdXRoX3RpbWUiOjE2ODkxNDczMTIsInByaW1hcnlCdXNpbmVzc0Z1bmN0aW9uIjoiREVBTEVSX1BBUlRTX1NQQyIsInBhc3Nwb3J0V2ViUm9sZXMiOlsiQUxMX0xNU19ERUFMRVJBRE1JTiIsIkFMTF9MTVNfR1VFU1QiLCJBTExfTE1TX0xFQVJORVIiLCJBTExfTUVESUFIVUJfQk9CQ0FUX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfT1BDX0FETUlOIiwiQUxMX09QQ19VU0VSIiwiQUxMX09QQ19VU0VSX0xJVEUiLCJBTExfVFJBTlNBQ1RfUEFSVFMiLCJBTExfVklFV19QQVJUU19QUklDRVMiLCJBTExfVklFV19TRVJWSUNFIiwiTkdfRVhURVJOQUxfVVNFUiJdLCJkaXJlY3RvcnlfZ3JvdXAiOlsiZGlyZWN0b3J5LWRlYWxlciJdLCJlbXBsb3llZU51bWJlciI6IjAxMDc3MDM1In0.JwCviotd5TAhP48MiUpu0n9DtuolLVhcICUC-bpTar6iUC36B4fVsJDp6NEd0INJ4diQvM4lQIP6oj7mMqY_Y2kEZSmDmmep0_LKD6EfOhxppIWGrpOsq4o168n2C7y8Ub6ZcMCTWs18o0z1vexef8Bkklx8SnCM0IOfIgZpmWo_O_JaXHMhlMg5GDew-7tynKHI_W8pVe7LqFojJvGqguoVPCOYY0T7pSIZvC2tfArZNS9O4ZGYaiEXNhJhPrbXY-qA4vZWYXic5lpbTSB48MhY2wIIQpVrUSerX5oWYtZMlPqG29vvJDp0-Bz9Br2rlggdB1y6mbnlSBWwANW6rg"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"lines\":[{\"itemNumber\":\"7021906\",\"quantity\":1,\"lineNumber\":\"1\"}]}"
+						},
+						"url": "{{BASE_URL}}/cart/{{organizationId}}/active/addlines"
+					},
+					"response": []
+				}
+			],
+			"id": "809167fd-f409-48e2-a467-bebd226183ab"
+		},
+		{
+			"name": "Claim APIs",
+			"item": [
+				{
+					"name": "TODO: RESPONSE SCHEMA TEST Get Claim History API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "18fa2bf8-b84f-4395-8eff-ed68c619ab10"
+							}
+						}
+					],
+					"id": "a29d7af2-6bd0-4233-8a68-eaae81f8c66a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "claim.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULlI4OVM4emdET2RCM0xNRTFoSDJ4elBuXzlPUGRTR2ZoM2NONGxxSDd4M0UiLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJjaGFkYWlsbGF0LmxvcmVsZW5uQHRvcGF6LXByby5jb20iLCJpYXQiOjE2ODkxNjI1MDcsImV4cCI6MTY4OTE2NjEwNywiY2lkIjoiMG9hMTB1cGkxczMwZzYxT24waDgiLCJ1aWQiOiIwMHV2cHFxODUwakNHUEhLVTBoNyIsInNjcCI6WyJhcGk6ZHAiLCJmZWVkYmFjazpyZWFkIiwiZXF1aXBtZW50OnJlYWQiLCJhcGk6ZG1zIiwiYXBpOmFzc2V0IiwiY29udGFjdDpyZWFkIiwiY29udGVudDpyZWFkIiwicGFzc3BvcnQ6c2VsZiIsInN1YnNjcmlwdGlvbnM6cmVhZCIsImFwaTpwYXJ0c3BvcnRhbCIsImFwaTpvcGMiLCJwcm9maWxlIiwiZGVhbGVyIiwiaW90OnJlYWQiLCJlbWFpbCIsImFwaTppYW0iLCJncm91cHMiLCJvcGVuaWQiLCJwcm9kdWN0OnJlYWQiLCJhY2NvdW50OnJlYWQiLCJwYXNzcG9ydDpyZWFkIiwibmdwYXNzcG9ydCJdLCJhdXRoX3RpbWUiOjE2ODkxNDczMTIsInByaW1hcnlCdXNpbmVzc0Z1bmN0aW9uIjoiREVBTEVSX1BBUlRTX1NQQyIsInBhc3Nwb3J0V2ViUm9sZXMiOlsiQUxMX0xNU19ERUFMRVJBRE1JTiIsIkFMTF9MTVNfR1VFU1QiLCJBTExfTE1TX0xFQVJORVIiLCJBTExfTUVESUFIVUJfQk9CQ0FUX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfT1BDX0FETUlOIiwiQUxMX09QQ19VU0VSIiwiQUxMX09QQ19VU0VSX0xJVEUiLCJBTExfVFJBTlNBQ1RfUEFSVFMiLCJBTExfVklFV19QQVJUU19QUklDRVMiLCJBTExfVklFV19TRVJWSUNFIiwiTkdfRVhURVJOQUxfVVNFUiJdLCJkaXJlY3RvcnlfZ3JvdXAiOlsiZGlyZWN0b3J5LWRlYWxlciJdLCJlbXBsb3llZU51bWJlciI6IjAxMDc3MDM1In0.BWmVQcGnZN1WQLsKNwz8jshqjxbSMzjpaWYuBxRisfrXdmS5fRnFa535i9RHhgbqtQNqdmyHmQ5zLw9pynBWo65MaPViU0BBD2iZhDUtEZ8-aBnhokIbTFHSwn9Jwn31-iRNX0mgzqJH3Zv3KJoe8bpym-ah5SV_o4E9R7nr1S4ZXOBwcbD1lqflQxtHizjEGXWWAzP6GMnDEDyG6AD64iuAji9o3k8EZytdaC9oy6YUvgpdxE8R6m9tJNQHZZBoD3b9-Nxc_WdqSM-V4N2NMIeNzgN0hy9bczJHtNhNkeeoP1op-eIyZRK11VgiMhDj_KO7tx4r2YSI20blspX_rw"
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"url": {
+							"raw": "{{CLAIM_BASE_URL}}/claim/{{organizationId}}/history?offset=0&limit=20",
+							"host": [
+								"{{CLAIM_BASE_URL}}"
+							],
+							"path": [
+								"claim",
+								"{{organizationId}}",
+								"history"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "42da8f71-94b9-4da6-b165-5ba0e57ebca0"
+		},
+		{
+			"name": "Configuration APIs",
+			"item": [
+				{
+					"name": "Configuration APIs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "559ea908-18ce-4ac3-b2c8-a184ce8ac872"
+							}
+						}
+					],
+					"id": "6e43453b-3567-42c8-a2ba-3edf275733c2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/configuration/{{organizationId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "6b4bce86-d626-409d-86a3-85a6287e3202"
+		},
+		{
+			"name": "Customer APIs",
+			"item": [
+				{
+					"name": "Customer APIs",
+					"id": "ccf7444b-3a04-4a9e-9fd5-64fdba731f21",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/customer/{{organizationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Site Details API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "dced79c6-412b-4158-b685-36d2f773816b"
+							}
+						}
+					],
+					"id": "d12d2207-de33-4b1b-a01d-ecdb50f60570",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/customer/{{organizationId}}/site"
+					},
+					"response": []
+				}
+			],
+			"id": "8374bf2c-e936-4dc0-81b9-6218d8ddba66"
+		},
+		{
+			"name": "Document APIs",
+			"item": [
+				{
+					"name": "Get a list of URLs for downloading documents API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "89e2fad4-767c-482e-a005-d13d459d3dcc"
+							}
+						}
+					],
+					"id": "d131442d-6e08-4fdb-acf6-a0dc748b3314",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/document/{{organizationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Search a list of URLs for downloading PDF documents API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "31f53ed1-3b22-4b2a-9b48-0defe81be3cc"
+							}
+						}
+					],
+					"id": "15942e77-cc71-40f3-91d1-0eaa35178122",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/document/{{organizationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document PDF API - return Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "b0334371-07fe-4e20-ac63-b6b7f4d24e22"
+							}
+						}
+					],
+					"id": "98dd9ed4-38e3-44a2-a4ba-e3630d0f699c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/document/{{organizationId}}/invoice/error"
+					},
+					"response": []
+				}
+			],
+			"id": "78df9f92-0f8e-4ac4-94c6-946f302c6639"
+		},
+		{
+			"name": "Event Log APIs",
+			"item": [
+				{
+					"name": "Get Event Log History API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "5c3c68a8-37ba-47ec-a825-ab5c7e2b7baa"
+							}
+						}
+					],
+					"id": "856de6d9-c845-4b3e-ac9e-049d1c14d1e7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/event/{{organizationId}}/history?undefined=&offset=0&limit=100",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"event",
+								"{{organizationId}}",
+								"history"
+							],
+							"query": [
+								{
+									"key": "undefined",
+									"value": ""
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "bd7aacc7-a78a-428e-8c1f-40f52f9a28e6"
+		},
+		{
+			"name": "Get Organizations",
+			"item": [
+				{
+					"name": "Get Organizations - descendants",
+					"id": "9eace89c-44af-4b18-8f88-4c16176842f8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "https://passport.aurora.api.qa.dice-tools.com/orgselector/descendants"
+					},
+					"response": []
+				}
+			],
+			"id": "9761b840-4c81-489d-8aa2-91e010131220"
+		},
+		{
+			"name": "Invoice APIs",
+			"item": [
+				{
+					"name": "Get Invoice History API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "3015e2e5-e8b3-42e4-8db1-723aa1ebc197"
+							}
+						}
+					],
+					"id": "27f82783-68e5-4232-a4ff-32a1eede9c79",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/invoice/{{organizationId}}/history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice History API Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "69cb7086-4ad6-4266-a861-b67d2bcd4539"
+							}
+						}
+					],
+					"id": "4f64a4b9-f3c1-4ebb-99c9-5acf3ff21d43",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/invoice/{{organizationId}}/history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice Details API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "ac715d92-4b94-46c9-933d-a5b619e70b5f"
+							}
+						}
+					],
+					"id": "237e0d41-2957-439b-b060-7b2987e7831d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/invoice/{{organizationId}}/history/{{invoiceNumber}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invoice Details API (Archived Data) - error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "efc0a1f0-82de-4945-a3da-a428be31d045"
+							}
+						}
+					],
+					"id": "67d8c82d-1d27-451c-b637-7d3f2fadf5ac",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/invoice/{{organizationId}}/history/{{invoiceNumber}}/archive"
+					},
+					"response": []
+				}
+			],
+			"id": "2bbcdacb-ab92-494d-acb5-a69edec0fcad"
+		},
+		{
+			"name": "Item API",
+			"item": [
+				{
+					"name": "Get Invoice Details API (Archived Data) - error Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "acd31f93-2723-4b71-8d35-f22325b5df55"
+							}
+						}
+					],
+					"id": "9c00309e-59fa-4a7d-8627-2071b0c275e0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/invoice/{{organizationId}}/history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item Details API - Item with all prices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "59c9cf26-e03c-4fa4-aa91-ba965ff9d13c"
+							}
+						}
+					],
+					"id": "b907b2fd-69a0-4fb0-87ee-e37ffa683784",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authority",
+								"value": "parts-portal.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULjF1endPOFdHRWV3MjBERl9TckJRaGVxa2N0YzlxNmV1VGFJdGxGSmV0WVUiLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJjaGFkYWlsbGF0LmxvcmVsZW5uQHRvcGF6LXByby5jb20iLCJpYXQiOjE2ODkzMTAzNjgsImV4cCI6MTY4OTMxMzk2OCwiY2lkIjoiMG9hMTB1cGkxczMwZzYxT24waDgiLCJ1aWQiOiIwMHV2cHFxODUwakNHUEhLVTBoNyIsInNjcCI6WyJhcGk6ZHAiLCJmZWVkYmFjazpyZWFkIiwiZXF1aXBtZW50OnJlYWQiLCJhcGk6ZG1zIiwiYXBpOmFzc2V0IiwiY29udGFjdDpyZWFkIiwiY29udGVudDpyZWFkIiwicGFzc3BvcnQ6c2VsZiIsInN1YnNjcmlwdGlvbnM6cmVhZCIsImFwaTpwYXJ0c3BvcnRhbCIsIm9wZW5pZCIsImFwaTpvcGMiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwiZW1haWwiLCJwcm9kdWN0OnJlYWQiLCJhY2NvdW50OnJlYWQiLCJwYXNzcG9ydDpyZWFkIiwibmdwYXNzcG9ydCJdLCJhdXRoX3RpbWUiOjE2ODkzMTAzNjEsInByaW1hcnlCdXNpbmVzc0Z1bmN0aW9uIjoiREVBTEVSX1BBUlRTX1NQQyIsInBhc3Nwb3J0V2ViUm9sZXMiOlsiQUxMX0xNU19ERUFMRVJBRE1JTiIsIkFMTF9MTVNfR1VFU1QiLCJBTExfTE1TX0xFQVJORVIiLCJBTExfTUVESUFIVUJfQk9CQ0FUX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfT1BDX0FETUlOIiwiQUxMX09QQ19VU0VSIiwiQUxMX09QQ19VU0VSX0xJVEUiLCJBTExfVFJBTlNBQ1RfUEFSVFMiLCJBTExfVklFV19QQVJUU19QUklDRVMiLCJBTExfVklFV19TRVJWSUNFIiwiTkdfRVhURVJOQUxfVVNFUiJdLCJkaXJlY3RvcnlfZ3JvdXAiOlsiZGlyZWN0b3J5LWRlYWxlciJdLCJlbXBsb3llZU51bWJlciI6IjAxMDc3MDM1In0.hBKqGfRslsPm-cDgnH2_2t9pr8UF0Zf-308SIV61Y4rI8ggVzd61KMDNzUeDkECeN1_D6xUmT-JpMXldhqGuyTdFoPJygTSXTOIo8S2Pk-GkO9swkQ2peyUXnqzOakcQpb3DrboPWaisW53QZ0Oi1yCBlVoHX7c3ODsE-OTdF2DS6puaijYPzifjeOG6DYFb9--QrePMcmoYpBR1GhZS1HtP5mditfKeGPoN1K0kySctJvlLF9Lb7MtLjdULyFw60khYIRboHI54tkBsopLZCGkt919dEJqUB7gzM2J8Kd_VOVWM9fMb9mxbMngJXqlUchpxMFfeVJkzcbj6PEHTzg"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"items\":[{\"itemNumber\":\"15896681\",\"quantity\":1}],\"addPrices\":true,\"availabilityWarehouses\":[],\"warehouse\":\"HPW\"}"
+						},
+						"url": "{{BASE_URL}}/item/{{organizationId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "bc9fd3be-dd61-4005-aa5f-3bb86321e1b8"
+		},
+		{
+			"name": "Notification APIs",
+			"item": [
+				{
+					"name": "Get New Notification Count API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "48f1a712-229b-4307-9d18-04e6d4d77d34"
+							}
+						}
+					],
+					"id": "1d75d00b-c4cb-4bef-8622-746a1bd57f88",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/notification/{{organizationId}}/history/count/new"
+					},
+					"response": []
+				},
+				{
+					"name": "TODO: get notificationId Get Notification Details API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "7ac61a5c-92ae-4d2a-9622-8e35224d74af"
+							}
+						}
+					],
+					"id": "042a5819-5638-4d04-980b-dd2f34a574ca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/notification/{{organizationId}}/history/2"
+					},
+					"response": []
+				},
+				{
+					"name": "ERROR: Get Notification Preferences API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "25a44604-4515-4dfd-83a0-af35f2f1c9f8"
+							}
+						}
+					],
+					"id": "d011e3ed-36dd-4dd6-acd4-4ebddf16f1f0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/notification/{{organizationId}}/preferences"
+					},
+					"response": []
+				}
+			],
+			"id": "f18595be-b038-482f-99ba-d981133873a6"
+		},
+		{
+			"name": "Order APIs",
+			"item": [
+				{
+					"name": "Get Order History API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "25a787c4-7d43-43cd-9b5f-b62e2463cdbe"
+							}
+						}
+					],
+					"id": "9dfacaeb-2da1-4736-9d84-bab2dbd7d951",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order History API (Archived Data)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "4e22672d-6440-43be-ad3e-a896b996ee98"
+							}
+						}
+					],
+					"id": "04ebf3ae-b6f2-4a62-bcb4-b9c30e4323cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/history/archive"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Details API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "659ac12a-0f32-4f0b-aad7-06d8631b5336"
+							}
+						}
+					],
+					"id": "40520faf-918b-4944-9720-78118435af8a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/history/{{orderNumber}}"
+					},
+					"response": []
+				},
+				{
+					"name": "archived order number? Get Order Details API (Archived Data)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "774bb503-8e9f-4312-9621-f0b7037ef74a"
+							}
+						}
+					],
+					"id": "bfb5c3ba-ccbe-4906-81b6-7b5b3477b98d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/history/{{archivedOrderNumber}}/archive"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cut-Off Time for Orders API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "3972002e-dba2-48ac-a696-1e3031f2e466"
+							}
+						}
+					],
+					"id": "283cecd0-7d5f-4e32-8cfb-59a553b2643c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/cutofftime"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Open Order Summary API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "e2a285d4-c116-4346-9824-a546c0335001"
+							}
+						}
+					],
+					"id": "fba7f9f4-1fd5-465a-b142-f81b623acf0e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/open"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Backordered Lines API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "31d71669-3ea9-48f9-b26b-02b01eedd454"
+							}
+						}
+					],
+					"id": "827c355a-d405-4f2c-8de3-91bb80810d97",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/order/{{organizationId}}/backordered"
+					},
+					"response": []
+				}
+			],
+			"id": "5f7429be-9c88-4e8a-bd24-aa7759caa0c4"
+		},
+		{
+			"name": "Price APIs",
+			"item": [
+				{
+					"name": "Get Price List Details API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "f5db921f-67d2-435a-9dc9-cb60a7d6dbe2"
+							}
+						}
+					],
+					"id": "f0aa9d5b-040f-4410-9825-ffb4b5691f82",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/price/{{organizationId}}/list"
+					},
+					"response": []
+				}
+			],
+			"id": "f9011c08-35b6-4a14-ab1c-667c7e621ffc"
+		},
+		{
+			"name": "Shipment APIs",
+			"item": [
+				{
+					"name": "Get Shipment History API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "805efa4f-986f-43d0-8fb0-fce7414ea78e"
+							}
+						}
+					],
+					"id": "a4740a95-e06f-42d0-b582-520bbbdff772",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/shipment/{{organizationId}}/history"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shipment History API (Archived Data)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "a1f80663-7a93-49fe-b6cc-e4d2a5942985"
+							}
+						}
+					],
+					"id": "32e255dd-e0e7-4eb2-b2e1-c24374640b61",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/shipment/{{organizationId}}/history/archive"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shipment Details API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "f54b071f-9752-46d7-a054-4ceef591ed41"
+							}
+						}
+					],
+					"id": "1f61e670-8b9d-4e61-bc8d-b275c98476a8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/shipment/{{organizationId}}/history/{{shipmentNumber}}"
+					},
+					"response": []
+				},
+				{
+					"name": "TODO: Archive: Get Shipment Details API (Archived Data)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "ecbab298-e663-4120-b32e-9ad1ae12ef22"
+							}
+						}
+					],
+					"id": "b0f28003-a105-41f0-a4f7-9ad7c1f61a5c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/shipment/{{organizationId}}/history/{{archivedShipmentNumber}}/archive"
+					},
+					"response": []
+				}
+			],
+			"id": "c2359329-a747-4c7b-8312-deaa9e8252a7"
+		},
+		{
+			"name": "Tax APIs",
+			"item": [
+				{
+					"name": "Get Tax Exemption API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "9715acb3-f3e9-4ae6-a77a-d7fa64a1b230"
+							}
+						}
+					],
+					"id": "64c6a85e-8967-4e48-b8ec-645d6b196114",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tax/{{organizationId}}/exemption?shipToState=CA&date=2022-04-14",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tax",
+								"{{organizationId}}",
+								"exemption"
+							],
+							"query": [
+								{
+									"key": "shipToState",
+									"value": "CA"
+								},
+								{
+									"key": "date",
+									"value": "2022-04-14"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "b93d6183-f6a8-412d-a73a-d5fd5f6d9156"
+		},
+		{
+			"name": "Web Based Training APIs",
+			"item": [
+				{
+					"name": "Get web based training list API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "c9a15bdd-a8b1-4a25-8658-508bfb563d29"
+							}
+						}
+					],
+					"id": "831c2288-eddb-4c00-845a-0a601d732995",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{BASE_URL}}/training"
+					},
+					"response": []
+				}
+			],
+			"id": "2417f8d8-d68c-4351-848f-99953e00abea"
+		},
+		{
+			"name": "RecentlyShippedTransactionSequence",
+			"item": [
+				{
+					"name": "SortedDesc",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c9a15bdd-a8b1-4a25-8658-508bfb563d29",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f013a3c3-48b4-4169-a6bb-7428c466e5ff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "authority",
+								"value": "passport.aurora.api.qa.dice-tools.com"
+							},
+							{
+								"key": "accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "accept-language",
+								"value": "en-US,en;q=0.9"
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer eyJraWQiOiIxdWVLX0RnSmtpanJrcG9tOVZtNHlWaVJuQXhjYmFySzdISzdEN09TaGljIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmtNajlocUVZRktlVnVlcjVzSFpEQ2R1RHFGZUltSTVKc2ZSUHdmam8yeWciLCJpc3MiOiJodHRwczovL2Rvb3Nhbi5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2Mybmc1MndtQzFXZFBqMGg3IiwiYXVkIjoiaHR0cDovL2FwaS5xYS5kaWNlLXRvb2xzLmNvbS8iLCJzdWIiOiJhbmdlbC5wZXJlekBjZW50cm9jYXIuY29tIiwiaWF0IjoxNjg5MjQ2MTE3LCJleHAiOjE2ODkyNDk3MTcsImNpZCI6IjBvYTEwdXBpMXMzMGc2MU9uMGg4IiwidWlkIjoiMDB1bm1mZGFqdnRNN0JVd1IwaDciLCJzY3AiOlsiYXBpOmRwIiwiZmVlZGJhY2s6cmVhZCIsImVxdWlwbWVudDpyZWFkIiwiYXBpOmRtcyIsImFwaTphc3NldCIsImNvbnRhY3Q6cmVhZCIsImNvbnRlbnQ6cmVhZCIsInBhc3Nwb3J0OnNlbGYiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJhcGk6cGFydHNwb3J0YWwiLCJhcGk6b3BjIiwiZW1haWwiLCJkZWFsZXIiLCJpb3Q6cmVhZCIsInByb2ZpbGUiLCJhcGk6aWFtIiwiZ3JvdXBzIiwicHJvZHVjdDpyZWFkIiwib3BlbmlkIiwiYWNjb3VudDpyZWFkIiwicGFzc3BvcnQ6cmVhZCIsIm5ncGFzc3BvcnQiXSwiYXV0aF90aW1lIjoxNjg5MjQ2MTEwLCJwcmltYXJ5QnVzaW5lc3NGdW5jdGlvbiI6IkRFQUxFUl9QQVJUU19NR1IiLCJwYXNzcG9ydFdlYlJvbGVzIjpbIkFMTF9MTVNfTEVBUk5FUiIsIkFMTF9NRURJQUhVQl9QT1JUQUJMRVBPV0VSX0xJR0hUIiwiQUxMX01ZTUFDSElORV9FTUVBX0ZSRUUiLCJBTExfUE9SVEFCTEVQT1dFUl9PTkxJTkVfUFVCTElDQVRJT04iLCJBTExfU01BUlRFUVVJUCIsIkFMTF9UUkFOU0FDVF9QQVJUUyIsIk5HX0VYVEVSTkFMX1VTRVIiXSwiZGlyZWN0b3J5X2dyb3VwIjpbImRpcmVjdG9yeS1kZWFsZXIiXSwiZW1wbG95ZWVOdW1iZXIiOiIwMTAyMjE0OSJ9.Gj-bNCaNdZGIFCzHfsM5wReh0QEZaH_amQhSEio8FGi54w3sJq5UbYky1M8T2fFOiZgtbNVZzdxPUwMXWUZACmaJu_XZbTdSCDDkCjUApOn4Iv40WF8DNwVjWhhAbozZpKI1m4HThoRgnyWGU3abOXAl6yJiI4wyZJ7bp58WZb4f8QkDmsfQngsn3nHR-45pMVU4XQC0DGmPEv6wCxPb_v7DnX81Z04v6n-FgLIbuxy694HcLR2FzHuaNYxXQwS9mFwLbhAqARBl8-uO_7ohsbT1D-541gjnqp2oR-K7pTzveYmTQ_njG0AWPXfVk-LISvfOJ2e78cgO7-bSDvaAYQ",
+								"disabled": true
+							},
+							{
+								"key": "origin",
+								"value": "https://bobcatdealernet.qa.dice-tools.com"
+							},
+							{
+								"key": "referer",
+								"value": "https://bobcatdealernet.qa.dice-tools.com/"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\""
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "sec-fetch-dest",
+								"value": "empty"
+							},
+							{
+								"key": "sec-fetch-mode",
+								"value": "cors"
+							},
+							{
+								"key": "sec-fetch-site",
+								"value": "same-site"
+							},
+							{
+								"key": "user-agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/shipment/{organizationId}/history?offset={offset}&limit=5&sortOrder=DESC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"shipment",
+								"{organizationId}",
+								"history"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "{offset}"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "sortOrder",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "7f095fce-0e95-4376-91bc-180c0670e715"
+		}
+	]
+}
